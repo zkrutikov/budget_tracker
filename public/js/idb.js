@@ -1,13 +1,18 @@
 // create a variable to hold db connection
 let db;
-
+const indexedDB = 
+window.indexedDB || 
+window.mozIndexedDB ||
+window.webkitIndexedDB ||
+window.msIndexedDB ||
+window.shimIndexedDB;
 // establish connection to IndexedDB 
 const request = indexedDB.open('budgetTracker', 1);
 
 // event that will emit if the database version changes
 request.onupgradeneeded = function(event) {
     // save a reference to the database
-    const db = event.target.result;
+    let db = event.target.result;
     // create object store
     db.createObjectStore('newEntry', {autoIncrement: true});
 };
@@ -19,7 +24,7 @@ request.onsuccess = function(event) {
 
     // check if app is onine
     if (navigator.onLine) {
-        //uploadbudget()
+        uploadbudget()
     }
 };
 
