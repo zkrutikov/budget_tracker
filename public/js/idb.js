@@ -24,7 +24,7 @@ request.onsuccess = function(event) {
 
     // check if app is onine
     if (navigator.onLine) {
-        uploadbudget()
+        uploadBudget()
     }
 };
 
@@ -51,7 +51,7 @@ function uploadBudget(){
     const transaction = db.transaction(['newBudget'], 'readwrite');
 
     // access pending object store
-    const budgetObjectStore = transaction.budgetObjectStore('newBudget');
+    const budgetObjectStore = transaction.objectStore('newBudget');
 
     // get all records from store and set to a variable
     const getAll = budgetObjectStore.getAll();
@@ -64,7 +64,7 @@ function uploadBudget(){
                 body: JSON.stringify(getAll.result),
                 headers: {
                     Accept: 'application/json, text/plain, */*',
-                    'Conent-Type': 'application/json'
+                    'Content-Type': 'application/json'
                 }
             })
             .then(response => response.json())
